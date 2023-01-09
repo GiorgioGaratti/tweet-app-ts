@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Title from './components/Title';
+import TweetList from './components/TweetList';
+import AddTweet from './components/AddTweet';
+import NoMoreTweetsMessage from './components/NoMoreTweetsMessage';
+import useApp from './hooks/useApp';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    // call custom hook with data for App components
+    const [tweetList, displayNoMoreTwMex, listOfTweetIds, handleAddTweet, handleDeleteTweet] = useApp();
+    
+	return (
+		<> {/* react fragment */}
+			<Title />
+			<AddTweet handleAddTweet={handleAddTweet} displayNoMoreTwMex={displayNoMoreTwMex} /> {/* add-tweet button */}
+			<NoMoreTweetsMessage displayNoMoreTwMex={displayNoMoreTwMex} /> {/* message when there are no more tweets to display */}
+			<TweetList handleDeleteTweet={handleDeleteTweet} tweetList={tweetList} listOfTweetIds={listOfTweetIds} />
+		</>
+	);
 }
 
 export default App;
