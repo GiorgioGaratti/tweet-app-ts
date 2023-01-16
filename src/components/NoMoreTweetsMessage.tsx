@@ -1,7 +1,7 @@
-import { memo } from "react";
+import { memo, FC } from "react";
 
 // message informing that there no more tweets to display
-const NoMoreTweetsMessage = memo(function NoMoreTweetsMessage({displayNoMoreTwMex}) {
+const NoMoreTweetsMessage: FC<{displayNoMoreTwMex: boolean}> = memo(function NoMoreTweetsMessage({displayNoMoreTwMex}) {
     // display message or do nothing
     return displayNoMoreTwMex ? (
         <div className="nomoretweetsmessagediv">

@@ -6,7 +6,7 @@ import NoMoreTweetsMessage from './components/NoMoreTweetsMessage';
 import useApp from './hooks/useApp';
 
 function App() {
-    // call custom hook with data for App components
+    // call custom hook to get data for App components
     const [tweetList, displayNoMoreTwMex, listOfTweetIds, handleAddTweet, handleDeleteTweet] = useApp();
     
 	return (

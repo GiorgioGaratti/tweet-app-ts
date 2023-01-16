@@ -1,7 +1,8 @@
-import { memo } from "react";
+import { memo, FC } from "react";
+import AddTweetPropsType from "../types/AddTweetPropsType";
 
 // button to display most recent tweet
-const AddTweet = memo(function AddTweet({handleAddTweet, displayNoMoreTwMex}) {
+const AddTweet: FC<AddTweetPropsType> = memo(function AddTweet({handleAddTweet, displayNoMoreTwMex}) {
     return (
         <div className="addtweet">
             <button className="addbtn" onClick={handleAddTweet} disabled={displayNoMoreTwMex}>

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import getTweets from "../api/tweetAPI";
+import tweetListInit from "../config/tweetListInit";
 import deleteTweet from "../lib/deleteTweet";
 import getNewListOfTweetIdsToRender from "../lib/getNewListOfTweetIdsToRender";
 import HandleAddTweetType from "../types/HandleAddTweetType";
 import HandleDeleteTweetType from "../types/HandleDeleteTweetType";
-import TweetType from "../types/tweetType";
+import TweetType from "../types/TweetType";
 
-const useApp: () => [TweetType[],boolean,number[],HandleAddTweetType,HandleDeleteTweetType] = () => {
+// custom hook
+const useApp = (): [TweetType[], boolean, number[], HandleAddTweetType, HandleDeleteTweetType] => {
     // state variable: list of tweets from API
 	const [tweetList, setTweetList] = useState<TweetType[]>([]);
     // state variable: (boolean) if true show message
@@ -17,12 +19,11 @@ const useApp: () => [TweetType[],boolean,number[],HandleAddTweetType,HandleDelet
     // hook: get all tweets from API and set initial list of tweets ids
     useEffect(() => {
         setTweetList(getTweets());
-        const INITIAL_TWEETS_ID_LIST:number[] = [1, 2, 3];
-        setListOfTweetIds(INITIAL_TWEETS_ID_LIST);
-    },[]);
+        setListOfTweetIds(tweetListInit.idsOfTweetsToDisplay);
+    }, []);
 
     // called onclick of addtweet button
-    const handleAddTweet:HandleAddTweetType = () => {
+    const handleAddTweet: HandleAddTweetType = () => {
         // if I have at least one tweet to show
         if(tweetList.length !== listOfTweetIds.length){
             setListOfTweetIds(getNewListOfTweetIdsToRender([...tweetList], [...listOfTweetIds]));
@@ -34,7 +35,7 @@ const useApp: () => [TweetType[],boolean,number[],HandleAddTweetType,HandleDelet
     };
     
     // called onclick of deletetweet button
-    const handleDeleteTweet:HandleDeleteTweetType = (tweetIdToRemove:number) => {
+    const handleDeleteTweet: HandleDeleteTweetType = (tweetIdToRemove) => {
         setListOfTweetIds(deleteTweet([...listOfTweetIds], tweetIdToRemove));
         setDisplayNoMoreTwMex(false);
     };

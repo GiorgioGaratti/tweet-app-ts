@@ -1,6 +1,8 @@
 import Avatar from "./Avatar";
+import { FC } from "react";
+import UserPropsType from "../../types/UserPropsType";
 
-const User = (props) => {
+const User: FC<UserPropsType> = (props) => {
     return (
         <div className="user">
             <Avatar user={props.user} />

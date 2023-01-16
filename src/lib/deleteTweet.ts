@@ -1,11 +1,9 @@
 // callback called onlick of delete button
-const deleteTweet = (listOfTweetIds, tweetIdToRemove) => {
+const deleteTweet = (listOfTweetIds: number[], tweetIdToRemove: number): number[] => {
 
     // remove from list of rendered tweets the one selected
     // by returning the complete list without it
-    const newListOfTweetsIdToRender = listOfTweetIds.filter((id) => {
-        return id !== tweetIdToRemove;
-    });
+    const newListOfTweetsIdToRender: number[] = listOfTweetIds.filter(id => id !== tweetIdToRemove);
 
     return newListOfTweetsIdToRender;
 }

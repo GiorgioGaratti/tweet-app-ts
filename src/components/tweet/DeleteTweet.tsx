@@ -1,9 +1,10 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton} from '@mui/material';
-import { memo } from 'react';
+import { memo,FC } from 'react';
+import DeleteTweetPropsType from '../../types/DeleteTweetPropsType';
 
 // trash bin icon
-const DeleteTweet = memo(function DeleteTweet(props) {
+const DeleteTweet: FC<DeleteTweetPropsType> = memo(function DeleteTweet(props) {
     return(
         <div className="deletetweet">
             <IconButton className="deletebtn" onClick={() => props.handleDeleteTweet(props.id)}>

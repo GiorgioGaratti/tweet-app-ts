@@ -3,8 +3,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteTweet from "./DeleteTweet";
 import useTweetContent from "../../hooks/useTweetContent";
+import TweetContentPropsType from '../../types/TweetContentPropsType';
+import { FC } from 'react';
 
-const TweetContent = (props) => {
+const TweetContent: FC<TweetContentPropsType> = (props) => {
 
     // custom hook to init state variables
     const [likes, likeState, handleAddLike] = useTweetContent(props);

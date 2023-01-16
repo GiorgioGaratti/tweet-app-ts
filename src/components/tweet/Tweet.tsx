@@ -1,9 +1,10 @@
 import Image from "./Image";
 import User from "../user/User";
 import TweetContent from "./TweetContent";
-import { memo } from "react";
+import { memo, FC } from "react";
+import TweetPropsType from "../../types/TweetPropsType";
 
-const Tweet = memo(function Tweet(props){
+const Tweet: FC<TweetPropsType> = memo(function Tweet(props){
     return (
         <div className="tweet">
             <Image tweetContent={props.tweetContent} />
