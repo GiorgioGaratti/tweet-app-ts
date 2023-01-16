@@ -12,9 +12,9 @@ function App() {
 	return (
 		<> {/* react fragment */}
 			<Title />
-			<AddTweet handleAddTweet={handleAddTweet} displayNoMoreTwMex={displayNoMoreTwMex} /> {/* add-tweet button */}
-			<NoMoreTweetsMessage displayNoMoreTwMex={displayNoMoreTwMex} /> {/* message when there are no more tweets to display */}
-			<TweetList handleDeleteTweet={handleDeleteTweet} tweetList={tweetList} listOfTweetIds={listOfTweetIds} />
+            <AddTweet displayNoMoreTwMex={displayNoMoreTwMex} handleAddTweet={handleAddTweet} /> {/* add-tweet button */}
+            <NoMoreTweetsMessage displayNoMoreTwMex={displayNoMoreTwMex} /> {/* message when there are no more tweets to display */}
+            <TweetList handleDeleteTweet={handleDeleteTweet} tweetList={tweetList} listOfTweetIds={listOfTweetIds} />
 		</>
 	);
 }
