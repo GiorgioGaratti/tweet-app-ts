@@ -1,10 +1,11 @@
-import { FC } from "react";
-import ImagePropsType from "../../types/ImagePropsType";
+import { useContext } from "react";
+import { TweetContext } from "./TweetProvider";
 
-const Image: FC<ImagePropsType> = (props) => {
+const Image = () => {
+    const context = useContext(TweetContext);
     return(
         <div>
-            <img className="image" src={props.tweetContent.imgSrc} alt={props.tweetContent.imgAlt}></img>
+            <img className="image" src={context.tweetContent.imgSrc} alt={context.tweetContent.imgAlt}></img>
         </div>);
 };
 

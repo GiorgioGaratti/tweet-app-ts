@@ -1,8 +1,7 @@
 import { useState } from "react";
-import TweetContentPropsType from "../types/TweetContentPropsType";
 
-const useTweetContent = (props: TweetContentPropsType): [number, boolean, () => void] => {
-    const [likes, setLikes] = useState<number>(props.tweetContent.likes);
+const useTweetContent = (likesnumb: number): [number, boolean, () => void] => {
+    const [likes, setLikes] = useState<number>(likesnumb);
     const [likeState, setLikeState] = useState<boolean>(false); // when the like button is not selected
     
     const handleAddLike = (): void => {

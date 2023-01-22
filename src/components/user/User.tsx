@@ -1,14 +1,15 @@
 import Avatar from "./Avatar";
-import { FC } from "react";
-import UserPropsType from "../../types/UserPropsType";
+import { useContext } from "react";
+import { TweetContext } from "../tweet/TweetProvider";
 
-const User: FC<UserPropsType> = (props) => {
+const User = () => {
+    const context = useContext(TweetContext);
     return (
         <div className="user">
-            <Avatar user={props.user} />
+            <Avatar/>
             <div className="fullname_username">
-                <p className="fullname">{props.user.fullname}</p>
-                <p className="username">{props.user.username}</p>
+                <p className="fullname">{context.user.fullname}</p>
+                <p className="username">{context.user.username}</p>
             </div>
         </div>
     );

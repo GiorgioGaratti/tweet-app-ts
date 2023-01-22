@@ -1,8 +1,9 @@
-import { FC } from "react";
-import AvatarPropsType from "../../types/AvatarPropsType";
+import { useContext } from "react";
+import { TweetContext } from "../tweet/TweetProvider";
 
-const Avatar: FC<AvatarPropsType> = (props) => {
-    return (<img className="image_avatar" src={props.user.imgAvatar} alt={props.user.imgAvAlt}></img>);
+const Avatar = () => {
+    const context = useContext(TweetContext);
+    return (<img className="image_avatar" src={context.user.imgAvatar} alt={context.user.imgAvAlt}></img>);
 }
 
 export default Avatar;
