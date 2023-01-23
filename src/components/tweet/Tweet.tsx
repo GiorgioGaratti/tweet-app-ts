@@ -1,11 +1,10 @@
-import { CardBody, CardFooter } from "@chakra-ui/card";
-import { Flex } from "@chakra-ui/layout";
-import { Card, CardHeader } from "@chakra-ui/react";
+import { CardBody, CardHeader } from "@chakra-ui/card";
+import { Card } from "@chakra-ui/react";
 import { memo } from "react";
-import User from "../user/User";
-import ButtonGroupCustom from "./ButtonGroupCustom";
-import ImageCustom from "./ImageCustom";
-import TweetContent from "./TweetContent";
+import { useContext } from "react";
+import { TweetContext } from "./TweetProvider";
+import { Image } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 /* const Tweet: FC<TweetPropsType> = memo(function Tweet(props){
     return (
@@ -24,7 +23,7 @@ import TweetContent from "./TweetContent";
 export default Tweet;
  */
 
-const Tweet:any = memo(function Tweet(props){
+/* const Tweet:any = memo(function Tweet(props){
     return (
         <Card>
             <CardHeader>
@@ -49,6 +48,23 @@ const Tweet:any = memo(function Tweet(props){
             </CardFooter>
         </Card>
     );
+});
+    
+export default Tweet; */
+
+const Tweet:any = memo(function Tweet(props){
+    const context = useContext(TweetContext);
+    return (
+        <Card>
+            <CardHeader padding={0}>
+                <Image
+                    src={context.tweetContent.imgSrc} 
+                    alt={context.tweetContent.imgAlt}
+                    objectFit='cover'
+                />  
+            </CardHeader>
+        </Card>
+    )
 });
     
 export default Tweet;
