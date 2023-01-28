@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import getTweets from "../api/tweetAPI";
 import tweetListInit from "../config/tweetListInit";
 import deleteTweet from "../lib/deleteTweet";
 import getNewListOfTweetIdsToRender from "../lib/getNewListOfTweetIdsToRender";
 import HandleAddTweetType from "../types/HandleAddTweetType";
 import HandleDeleteTweetType from "../types/HandleDeleteTweetType";
 import TweetType from "../types/TweetType";
+import axios from "axios";
+ 
 
 // custom hook
 const useApp = (): [TweetType[], boolean, number[], HandleAddTweetType, HandleDeleteTweetType] => {
@@ -18,7 +19,15 @@ const useApp = (): [TweetType[], boolean, number[], HandleAddTweetType, HandleDe
 
     // hook: get all tweets from API and set initial list of tweets ids
     useEffect(() => {
-        setTweetList(getTweets());
+        let exit:TweetType[];
+        axios.get("http://localhost:3005/tweets")
+            .then(function(response){
+                exit = response.data;
+                setTweetList(exit);
+            })
+            .catch(function(error){
+                console.log(error);
+            });
         setListOfTweetIds(tweetListInit.idsOfTweetsToDisplay);
     }, []);
 
