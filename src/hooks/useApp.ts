@@ -1,28 +1,50 @@
 import { useEffect, useState } from "react";
-import getTweets from "../api/tweetAPI";
+import axios from "axios";
 import tweetListInit from "../config/tweetListInit";
 import deleteTweet from "../lib/deleteTweet";
 import getNewListOfTweetIdsToRender from "../lib/getNewListOfTweetIdsToRender";
 import HandleAddTweetType from "../types/HandleAddTweetType";
 import HandleDeleteTweetType from "../types/HandleDeleteTweetType";
 import TweetType from "../types/TweetType";
+import getTweets from "../api/tweetAPI";
 
-// custom hook
 const useApp = (): [TweetType[], boolean, number[], HandleAddTweetType, HandleDeleteTweetType] => {
-    // state variable: list of tweets from API
+
 	const [tweetList, setTweetList] = useState<TweetType[]>([]);
-    // state variable: (boolean) if true show message
-	const [displayNoMoreTwMex, setDisplayNoMoreTwMex] = useState<boolean>(false);
+	const [isThereAnyTweetLeft, setIsThereAnyTweetLeft] = useState<boolean>(true);
     // state variable: list of rendered tweets ids
     const [listOfTweetIds, setListOfTweetIds] = useState<number[]>([]);
 
-    // hook: get all tweets from API and set initial list of tweets ids
-    useEffect(() => {
+    /* useEffect(() => {
         setTweetList(getTweets());
+        setListOfTweetIds(tweetListInit.idsOfTweetsToDisplay);
+    }, []); */
+
+    useEffect(() => {
+
+        const dataToSend = JSON.stringify(getTweets());
+        
+        async function setTweetsInDb() {
+            try {
+                const response = await axios.post("http://localhost:3005/tweets", dataToSend, {headers:{"Content-Type":"application/json"}});
+                console.log(response);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        setTweetsInDb();
+
+        axios.get("http://localhost:3005/tweets")
+            .then(function(response){
+                console.log("get ---> " + response)
+                setTweetList(response.data);
+            })
+            .catch(function(error){
+                console.log("get err ---> "+error);
+            });
         setListOfTweetIds(tweetListInit.idsOfTweetsToDisplay);
     }, []);
 
-    // called onclick of addtweet button
     const handleAddTweet: HandleAddTweetType = () => {
         // if I have at least one tweet to show
         if(tweetList.length !== listOfTweetIds.length){
@@ -30,17 +52,16 @@ const useApp = (): [TweetType[], boolean, number[], HandleAddTweetType, HandleDe
         } 
         // else if there are no tweets to display
         else if (tweetList.length === listOfTweetIds.length) {
-            setDisplayNoMoreTwMex(true);
+            setIsThereAnyTweetLeft(false);
         }
     };
     
-    // called onclick of deletetweet button
     const handleDeleteTweet: HandleDeleteTweetType = (tweetIdToRemove) => {
         setListOfTweetIds(deleteTweet([...listOfTweetIds], tweetIdToRemove));
-        setDisplayNoMoreTwMex(false);
+        setIsThereAnyTweetLeft(true);
     };
 
-    return [tweetList, displayNoMoreTwMex, listOfTweetIds, handleAddTweet, handleDeleteTweet];
+    return [tweetList, isThereAnyTweetLeft, listOfTweetIds, handleAddTweet, handleDeleteTweet];
 }
 
 export default useApp;
